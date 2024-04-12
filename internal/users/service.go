@@ -40,9 +40,9 @@ func (s *service) Store(name, lastname, email string, age int, height float64, a
 		return User{}, err
 	}
 
-	*lastId++
+	lastId++
 
-	u, err := s.repository.Store(*lastId, name, lastname, email, date, age, height, active)
+	u, err := s.repository.Store(lastId, name, lastname, email, date, age, height, active)
 	if err != nil {
 		return User{}, err
 	}

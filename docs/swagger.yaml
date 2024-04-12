@@ -1,0 +1,235 @@
+definitions:
+  handler.UserModelDto:
+    properties:
+      active:
+        type: boolean
+      age:
+        type: integer
+      email:
+        type: string
+      height:
+        type: number
+      lastname:
+        type: string
+      name:
+        type: string
+    required:
+    - active
+    - age
+    - email
+    - height
+    - lastname
+    - name
+    type: object
+  handler.UserPatchDto:
+    properties:
+      age:
+        type: integer
+      lastname:
+        type: string
+    type: object
+  users.User:
+    properties:
+      active:
+        type: boolean
+      age:
+        type: integer
+      created_at:
+        type: string
+      email:
+        type: string
+      height:
+        type: number
+      id:
+        type: integer
+      lastname:
+        type: string
+      name:
+        type: string
+    type: object
+  web.Response:
+    properties:
+      code:
+        type: string
+      data: {}
+      error:
+        type: string
+    type: object
+info:
+  contact:
+    name: API Support
+    url: https://developers.mercadolibre.com.ar/support
+  description: This API Handle MELI Users.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://developers.mercadolibre.com.ar/es_ar/terminos-y-condiciones
+  title: MELI Bootcamp API
+  version: "1.0"
+paths:
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: list users
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/users.User'
+                  type: array
+              type: object
+      summary: List users
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: update user
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: User to update
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/handler.UserModelDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/users.User'
+              type: object
+      summary: Update user
+      tags:
+      - Users
+  /users/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Delete user
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Delete user
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: get user
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/users.User'
+              type: object
+      summary: Get user
+      tags:
+      - Users
+    patch:
+      consumes:
+      - application/json
+      description: patch user
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Fields to update
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/handler.UserPatchDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/users.User'
+              type: object
+      summary: Patch user
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: store user
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: User to store
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/handler.UserModelDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/users.User'
+              type: object
+      summary: Store user
+      tags:
+      - Users
+swagger: "2.0"
