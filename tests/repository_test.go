@@ -1,9 +1,10 @@
-package users
+package tests
 
 import (
 	"encoding/json"
 	"testing"
 
+	"github.com/Duarte64/go-web-meli/internal/users"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -45,7 +46,7 @@ func (s StoreStub) Write(interface{}) error {
 
 func TestGetAll(t *testing.T) {
 	store := StoreStub{readWasCalled: false}
-	repository := NewRepository(&store)
+	repository := users.NewRepository(&store)
 	var us, err = repository.GetAll()
 
 	expectFirstId := uint(1)
@@ -59,7 +60,7 @@ func TestGetAll(t *testing.T) {
 
 func TestUpdate(t *testing.T) {
 	store := StoreStub{readWasCalled: false}
-	repository := NewRepository(&store)
+	repository := users.NewRepository(&store)
 
 	assert.False(t, store.readWasCalled)
 

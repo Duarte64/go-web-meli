@@ -58,5 +58,8 @@ func main() {
 		routeUsers.PUT("/:id", u.Update())
 	}
 
-	router.Run(":8080")
+	err = router.Run(":8080")
+	if err != nil {
+		panic("unable to start app")
+	}
 }

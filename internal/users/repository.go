@@ -50,7 +50,9 @@ func (r *repository) LastId() (uint, error) {
 
 func (r *repository) Store(id uint, name, lastname, email, createdAt string, age int, height float64, active bool) (User, error) {
 	var us []User
-	r.db.Read(&us)
+	if err := r.db.Read(&us); err != nil {
+		return User{}, err
+	}
 	u := User{id, name, lastname, email, age, height, active, createdAt}
 	us = append(us, u)
 	if err := r.db.Write(us); err != nil {
@@ -61,7 +63,9 @@ func (r *repository) Store(id uint, name, lastname, email, createdAt string, age
 
 func (r *repository) Update(id uint, name, lastname, email string, age int, height float64, active bool) (User, error) {
 	var us []User
-	r.db.Read(&us)
+	if err := r.db.Read(&us); err != nil {
+		return User{}, err
+	}
 	updatedUser := User{Name: name, Lastname: lastname, Email: email, Age: age, Height: height, Active: active}
 	for index, user := range us {
 		if user.ID == id {
@@ -80,7 +84,9 @@ func (r *repository) Update(id uint, name, lastname, email string, age int, heig
 
 func (r *repository) Delete(id uint) error {
 	var us []User
-	r.db.Read(&us)
+	if err := r.db.Read(&us); err != nil {
+		return err
+	}
 	for index, user := range us {
 		if user.ID == id {
 			us = append(us[:index], us[index+1:]...)
@@ -96,13 +102,17 @@ func (r *repository) Delete(id uint) error {
 
 func (r *repository) GetAll() ([]User, error) {
 	var us []User
-	r.db.Read(&us)
+	if err := r.db.Read(&us); err != nil {
+		return []User{}, err
+	}
 	return us, nil
 }
 
 func (r *repository) GetById(id uint) (User, error) {
 	var us []User
-	r.db.Read(&us)
+	if err := r.db.Read(&us); err != nil {
+		return User{}, err
+	}
 	for _, user := range us {
 		if user.ID == id {
 			return user, nil
@@ -114,7 +124,9 @@ func (r *repository) GetById(id uint) (User, error) {
 
 func (r *repository) Patch(id uint, lastname string, age int) (User, error) {
 	var us []User
-	r.db.Read(&us)
+	if err := r.db.Read(&us); err != nil {
+		return User{}, err
+	}
 	for index, user := range us {
 		if user.ID == id {
 			if lastname != "" {
