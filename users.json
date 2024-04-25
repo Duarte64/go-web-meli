@@ -18,5 +18,15 @@
     "height": 1.7,
     "active": true,
     "created_at": "2024-04-12 11:04:19.42315 -0300 -03 m=+11.688279793"
+  },
+  {
+    "id": 4,
+    "name": "teste",
+    "lastname": "teste",
+    "email": "test@test.com",
+    "age": 100,
+    "height": 1.8,
+    "active": true,
+    "created_at": "2024-04-25 16:02:01.671705 -0300 -03 m=+22.897999126"
   }
 ]
