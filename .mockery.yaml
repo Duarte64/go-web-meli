@@ -1,0 +1,8 @@
+# .mockery.yaml
+output: mocks
+testonly: true
+name: "Repository"
+dir: internal/users
+filename: "{name}_mock.go"
+inpackage: true
+case: underscore
